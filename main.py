@@ -1,9 +1,11 @@
 import streamlit as st
-
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
 import matplotlib.pyplot as plt
 import numpy as np
+
+@st.cache_resource
+def train_my_model():
 
 # Dataset Preprocessing
 
@@ -63,6 +65,7 @@ history = model.fit(
     validation_data=validation_generator,
     epochs=10
 )
+ return model
 
 # Save Model
 
@@ -80,6 +83,19 @@ plt.xlabel('Epoch')
 plt.legend(['Train', 'Validation'])
 
 plt.show()
+model = train_my_model()
+# user interface section
+uploaded_file = st.file_uploader("to upload an image.", type=["jpg", "jpeg", "png"])
+
+if uploaded_file is not None:
+    img = load_img(uploaded_file, target_size=(128, 128))
+    img_array = img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)
+
+    prediction = model.predict(img_array)
+    # single image prediction
+    st.image(uploaded_file, caption='Uploaded Image', use_column_width=True)
+    st.write("Prediction Result:", prediction)
 
 # Test Single Image
 
@@ -97,5 +113,4 @@ if uploaded_file is not None:
     # Convert the image to an array and expand dimensions
     img_array = img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
-    
     
