@@ -83,6 +83,8 @@ plt.show()
 
 # Test Single Image
 
+uploaded_file = st.file_uploader("Ek image upload kariye...", type=["jpg", "jpeg", "png"])
+
 if uploaded_file is not None:
     img = load_img(uploaded_file, target_size=(128, 128))
     img_array = img_to_array(img)
