@@ -98,6 +98,4 @@ if uploaded_file is not None:
     img_array = img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
     
-    # Normalize the image
-    img_array = img_array / 255.0
-    st.image(uploaded_file, caption='Uploaded Image', use_column_width=True)
+    
