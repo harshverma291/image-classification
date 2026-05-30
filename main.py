@@ -1,3 +1,5 @@
+from turtle import st
+
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
 import matplotlib.pyplot as plt
@@ -81,13 +83,21 @@ plt.show()
 
 # Test Single Image
 
-img = load_img('test.jpg', target_size=(128,128))
+if uploaded_file is not None:
+    img = load_img(uploaded_file, target_size=(128, 128))
+    img_array = img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)
+# Normalize the image
+uploaded_file = st.file_uploader("Ek image upload kariye...", type=["jpg", "jpeg", "png"])
 
-img_array = img_to_array(img)
-img_array = np.expand_dims(img_array, axis=0)
-
-img_array = img_array / 255.0
-
-prediction = model.predict(img_array)
-
-print("Prediction:", prediction)
+if uploaded_file is not None:
+# Load the image and preprocess it    
+    img = load_img(uploaded_file, target_size=(128, 128))
+    
+    # Convert the image to an array and expand dimensions
+    img_array = img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)
+    
+    # Normalize the image
+    img_array = img_array / 255.0
+    st.image(uploaded_file, caption='Uploaded Image', use_column_width=True)
