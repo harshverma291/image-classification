@@ -3,3 +3,4 @@ tensorflow-cpu
 numpy
 matplotlib     
 pillow
+scipy
