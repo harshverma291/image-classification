@@ -1,5 +1,4 @@
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
 import matplotlib.pyplot as plt
 import numpy as np
@@ -32,20 +31,20 @@ validation_generator = train_datagen.flow_from_directory(
 
 # Build CNN Model
 
-model = Sequential()
+model = tf.keras.models.Sequential()
 
-model.add(Conv2D(32, (3,3), activation='relu', input_shape=(128,128,3)))
-model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(tf.keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(128,128,3)))
+model.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2)))
 
-model.add(Conv2D(64, (3,3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(tf.keras.layers.Conv2D(64, (3,3), activation='relu'))
+model.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2)))
 
-model.add(Flatten())
+model.add(tf.keras.layers.Flatten())
 
-model.add(Dense(128, activation='relu'))
-model.add(Dropout(0.5))
+model.add(tf.keras.layers.Dense(128, activation='relu'))
+model.add(tf.keras.layers.Dropout(0.5))
 
-model.add(Dense(train_generator.num_classes, activation='softmax'))
+model.add(tf.keras.layers.Dense(train_generator.num_classes, activation='softmax'))
 
 # Compile Model
 
